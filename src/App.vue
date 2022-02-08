@@ -1,7 +1,6 @@
 
 <script setup lang="ts">
 import emun from "@/views/menu/index.vue"
-import Login from "./views/login/login.vue";
 </script>
 
 <template>

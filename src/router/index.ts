@@ -3,17 +3,22 @@ import {createRouter,createWebHistory,RouteRecordRaw} from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'default',
+    name: 'index',
     component: () => import("@/views/default/index.vue")
   },
   {
-    path: "/menu",
-    name: "menu",
-    component: () => import("@/views/menu/index.vue")
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/login/login.vue")
   },
   {
-    path: "/index",
-    name: "index",
+    path: "/default",
+    name: "default",
+    component: () => import("@/views/default/index.vue")
+  },
+  {
+    path: "/good-list",
+    name: "goodList",
     component: () => import("@/views/index.vue")
   }
 ]

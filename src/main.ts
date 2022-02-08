@@ -1,8 +1,23 @@
 import { createApp } from 'vue'
+import store from './store/index'
 import App from './App.vue'
 import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 
 const app = createApp(App)
-app.use(router).use(ElementPlus).mount('#app')
+router.beforeEach((to, from, next) => {
+  if (store.state.token === null) {
+     if (to.path !== "/login") {
+       router.push({
+        path: "/login"
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+
+})
+app.use(router).use(store).use(ElementPlus).mount('#app')

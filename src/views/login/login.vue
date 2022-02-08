@@ -11,17 +11,24 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { reactive } from 'vue';
-  import {useRouter} from "vue-router"
+  import { reactive, defineEmits } from 'vue';
+  import { useRouter } from "vue-router"
+  import { useStore } from 'vuex';
   import LoginCom from './loginCom.vue';
   let active_name_form = reactive({
     active_name: "login",
   })
   const router = useRouter()
+  interface emitType {
+    (e: string, value?: Object ): void
+  }
+  const emit = defineEmits<emitType>()
+  const store = useStore()
   const getUserInfo = (val: Object): void => {
-    localStorage.setItem("token", "123123")
+    store.commit("updateToken", "token")
+    emit("getUserInfo")
     router.push({
-      name: "menu",
+      path: "/default",
       query: {
         name: "张三"
       }
