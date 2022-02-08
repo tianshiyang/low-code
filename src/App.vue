@@ -1,10 +1,11 @@
+
 <script setup lang="ts">
+import emun from "@/views/menu/index.vue"
+import Login from "./views/login/login.vue";
 </script>
 
 <template>
-  <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view>
+  <emun></emun>
 </template>
 
 <style>
@@ -14,6 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0;
 }
 </style>
