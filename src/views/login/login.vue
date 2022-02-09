@@ -13,7 +13,6 @@
 <script lang="ts" setup>
   import { reactive, defineEmits } from 'vue';
   import { useRouter } from "vue-router"
-  import { useStore } from 'vuex';
   import LoginCom from './loginCom.vue';
   let active_name_form = reactive({
     active_name: "login",
@@ -23,9 +22,8 @@
     (e: string, value?: Object ): void
   }
   const emit = defineEmits<emitType>()
-  const store = useStore()
   const getUserInfo = (val: Object): void => {
-    store.commit("updateToken", "token")
+    localStorage.setItem("token", "token")
     emit("getUserInfo")
     router.push({
       path: "/default",

@@ -1,10 +1,12 @@
 
 <script setup lang="ts">
 import emun from "@/views/menu/index.vue"
+const token = localStorage.getItem("token")
 </script>
 
 <template>
-  <emun></emun>
+  <emun v-if="token"></emun>
+  <router-view></router-view>
 </template>
 
 <style>

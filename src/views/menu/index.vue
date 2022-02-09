@@ -1,6 +1,5 @@
 <template>
-{{ store.state.token }}
-  <div class="box" v-if="store.state.token">
+  <div class="box">
     <div class="menu">
       <el-menu
         active-text-color="#ffd04b"
@@ -29,31 +28,23 @@
       <router-view />
     </section>
   </div>
-  <div v-else>
+  <!-- <div v-else>
     <Login @getUserInfo="getUserInfo"></Login>
-  </div>
+  </div> -->
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import { watch, ref } from 'vue';
+import { ref } from 'vue';
 import Login from '../login/login.vue';
 
-const store = useStore()
+let token = ref("")
 const getLoginToken = () => {
-  store.commit("updateToken", "token")
+  token.value = localStorage.getItem("token")!
 }
 const getUserInfo = () => {
   getLoginToken()
 }
-
-watch(
-  () => store.state.token,
-  () => {
-    console.log('gaonoia')
-  }
-  )
 
 const router = useRouter()
 
