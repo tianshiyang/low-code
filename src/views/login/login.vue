@@ -18,13 +18,8 @@
     active_name: "login",
   })
   const router = useRouter()
-  interface emitType {
-    (e: string, value?: Object ): void
-  }
-  const emit = defineEmits<emitType>()
   const getUserInfo = (val: Object): void => {
     localStorage.setItem("token", "token")
-    emit("getUserInfo")
     router.push({
       path: "/default",
       query: {
@@ -35,8 +30,8 @@
 </script>
 <style scoped lang="scss">
 .box {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   background: cornflowerblue;
   justify-content: center;

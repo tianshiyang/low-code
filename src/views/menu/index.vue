@@ -6,6 +6,7 @@
         background-color="#545c64"
         class="el-menu-demo"
         default-active="2"
+        router
         text-color="#fff">
         <el-sub-menu index="1">
           <template #title>
@@ -23,28 +24,15 @@
           </el-sub-menu>
         </el-sub-menu>
       </el-menu>
+      <div>
+        <el-button type="text" @click="clearItem">退出</el-button>
+      </div>
     </div>
-    <section class="section">
-      <router-view />
-    </section>
   </div>
-  <!-- <div v-else>
-    <Login @getUserInfo="getUserInfo"></Login>
-  </div> -->
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import Login from '../login/login.vue';
-
-let token = ref("")
-const getLoginToken = () => {
-  token.value = localStorage.getItem("token")!
-}
-const getUserInfo = () => {
-  getLoginToken()
-}
 
 const router = useRouter()
 
@@ -53,6 +41,20 @@ const goList = (path: string): void => {
     path
   })
 }
+
+// 退出
+const clearItem = () => {
+  localStorage.clear()
+}
+
+// 监听清除localStorage事件
+window.addEventListener('clearItemEvent', () => {
+    setTimeout(() => {
+      router.push({
+        path: '/login'
+      })
+    })
+  })
 
 </script>
 

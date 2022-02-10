@@ -7,7 +7,7 @@ import 'element-plus/theme-chalk/index.css'
 
 const app = createApp(App)
 router.beforeEach((to, from, next) => {
-  if (store.state.token === null) {
+  if (localStorage.getItem("token") === null) {
      if (to.path !== "/login") {
        router.push({
         path: "/login"
