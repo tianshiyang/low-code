@@ -1,168 +1,89 @@
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-    :size="formSize"
-  >
-    <el-form-item label="Activity name" prop="name">
-      <el-input v-model="ruleForm.name"></el-input>
+  <el-form ref="ruleFormRef" :model="form" inline>
+    <el-form-item label="商品id">
+      <el-input :model="form.goods_id" placeholder="请输入商品id"></el-input>
     </el-form-item>
-    <el-form-item label="Activity zone" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="Activity zone">
-        <el-option label="Zone one" value="shanghai"></el-option>
-        <el-option label="Zone two" value="beijing"></el-option>
+    <el-form-item label="商品分类">
+      <el-select v-model="form.goods_classification" placeholder="请选择商品分类" size="large">
+        <el-option
+          v-for="item in form.goods_classification_options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="Activity time" required>
-      <el-col :span="11">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          ></el-date-picker>
-        </el-form-item>
-      </el-col>
-      <el-col class="text-center" :span="2">
-        <span class="text-gray-500">-</span>
-      </el-col>
-      <el-col :span="11">
-        <el-form-item prop="date2">
-          <el-time-picker
-            v-model="ruleForm.date2"
-            placeholder="Pick a time"
-            style="width: 100%"
-          ></el-time-picker>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="Instant delivery" prop="delivery">
-      <el-switch v-model="ruleForm.delivery"></el-switch>
-    </el-form-item>
-    <el-form-item label="Activity type" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="Online activities" name="type"></el-checkbox>
-        <el-checkbox label="Promotion activities" name="type"></el-checkbox>
-        <el-checkbox label="Offline activities" name="type"></el-checkbox>
-        <el-checkbox label="Simple brand exposure" name="type"></el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="Resources" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="Sponsorship"></el-radio>
-        <el-radio label="Venue"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Activity form" prop="desc">
-      <el-input v-model="ruleForm.desc" type="textarea"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >Create</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
   </el-form>
+
+  <el-table :data="table_data" style="width: 100%;">
+    <el-table-column align="center" prop="id" width="150" label="商品id" />
+    <el-table-column align="center" prop="goods_name" width="200" label="商品名称" />
+    <el-table-column align="center" prop="goods_classification" width="200" label="商品分类">
+      <template #default="scope">{{ goodsClassification(scope.row) }}</template>
+    </el-table-column>
+    <el-table-column align="center" prop="count" label="库存数量" />
+    <el-table-column align="center" prop="specifications" width="400px" label="商品规格" />
+    <el-table-column align="center" prop="attribute" width="400" label="商品属性" />
+    <el-table-column align="center" fixed="right" width="150" label="操作">
+      <template #default="scope">
+        <el-button type="text">删除</el-button>
+        <el-button type="text">删除</el-button>
+        <el-button type="text">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import type { ElForm } from "element-plus";
+import { reactive } from "vue";
 
-type FormInstance = InstanceType<typeof ElForm>;
-
-const formSize = ref("");
-const ruleFormRef = ref<FormInstance>();
-const ruleForm = reactive({
-  name: "",
-  region: "",
-  date1: "",
-  date2: "",
-  delivery: false,
-  type: [],
-  resource: "",
-  desc: "",
+const form = reactive({
+  goods_id: "",
+  goods_classification: "",
+  goods_classification_options: [{
+    label: "生活用品",
+    value: 0
+  }, {
+    label: "鞋",
+    value: 1
+  }]
 });
 
-const rules = reactive({
-  name: [
-    {
-      required: true,
-      message: "Please input Activity name",
-      trigger: "blur",
-    },
-    {
-      min: 3,
-      max: 5,
-      message: "Length should be 3 to 5",
-      trigger: "blur",
-    },
-  ],
-  region: [
-    {
-      required: true,
-      message: "Please select Activity zone",
-      trigger: "change",
-    },
-  ],
-  date1: [
-    {
-      type: "date",
-      required: true,
-      message: "Please pick a date",
-      trigger: "change",
-    },
-  ],
-  date2: [
-    {
-      type: "date",
-      required: true,
-      message: "Please pick a time",
-      trigger: "change",
-    },
-  ],
-  type: [
-    {
-      type: "array",
-      required: true,
-      message: "Please select at least one activity type",
-      trigger: "change",
-    },
-  ],
-  resource: [
-    {
-      required: true,
-      message: "Please select activity resource",
-      trigger: "change",
-    },
-  ],
-  desc: [
-    {
-      required: true,
-      message: "Please input activity form",
-      trigger: "blur",
-    },
-  ],
-});
+const table_data = reactive([
+  {
+    id: 1,
+    goods_name: "牙刷",
+    goods_classification: 0,
+    count: 100,
+    specifications: "菲尔普斯专用电动牙刷，长度15cm，电池可用300小时，软毛，深度清洁",
+    attribute: "电池可拆卸，软毛极度清洁，深度呵护牙龈"
+  }, {
+    id: 2,
+    goods_name: "阿迪男鞋",
+    goods_classification: 1,
+    count: 50,
+    specifications: "阿迪达斯专用男款跑鞋，超强弹力，跑步提速，1km只需10秒，赶超刘翔，直冲世界冠军",
+    attribute: "全码，女36-44， 男40-46"
+  }
+])
 
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.validate((valid) => {
-    if (valid) {
-      console.log("submit!");
-    } else {
-      console.log("error submit!");
-      return false;
-    }
-  });
-};
+interface Row {
+  id: string,
+  goods_name: string,
+  goods_classification: number
+}
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.resetFields();
-};
+const goodsClassification: (row: Row) => string = (row: Row): string => {
+  let str = "", { goods_classification } = row
+  switch (goods_classification) {
+    case 0:
+      str = "生活用品"
+      break;
+    case 1:
+      str = "鞋"
+      break
+  }
+  return str
+}
+
 </script>

@@ -2,13 +2,13 @@
   <div class="app-box">
     <vHeader></vHeader>
     <el-container>
-      <el-aside :style="collapse? 'width: 50px' : 'width: 250px'">
+      <el-aside :style="collapse ? 'width: 50px' : 'width: 200px'">
         <v-menu></v-menu>
       </el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
-  </el-container>
+    </el-container>
   </div>
 </template>
 <script setup lang="ts">
@@ -23,8 +23,7 @@ const collapse = computed((): boolean => {
 })
 </script>
 <style lang="scss">
-  .app-box {
-    height: 100%;
-  }
-
+.app-box {
+  height: 100%;
+}
 </style>
