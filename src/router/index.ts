@@ -1,10 +1,10 @@
 import {createRouter,createWebHistory,RouteRecordRaw} from 'vue-router'
+import home from "@/views/home/home.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'index',
-    component: () => import("@/views/default/index.vue")
+    redirect: "/default"
   },
   {
     path: "/login",
@@ -12,15 +12,20 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/login/login.vue")
   },
   {
-    path: "/default",
-    name: "default",
-    component: () => import("@/views/default/index.vue")
+    path: "/",
+    name: "home",
+    component: home,
+    children: [{
+      path: "/default",
+      name: "default",
+      component: () => import("@/views/default/index.vue")
+    },
+    {
+      path: "/good-list",
+      name: "goodList",
+      component: () => import("@/views/goodList/index.vue")
+    }]
   },
-  {
-    path: "/good-list",
-    name: "goodList",
-    component: () => import("@/views/index.vue")
-  }
 ]
 
 const router = createRouter({

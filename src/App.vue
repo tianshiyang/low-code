@@ -1,36 +1,25 @@
 <template>
-  <el-container v-if="token">
-    <el-aside width="220px">
-      <emun></emun>
-    </el-aside>
-    <el-main>
-      <router-view></router-view>
-    </el-main>
-  </el-container>
-  <div v-else>
-    <router-view></router-view>
-  </div>
+  <router-view />
 </template>
 
 <script setup lang="ts">
-  import emun from "@/views/menu/index.vue"
-  import {ref} from "vue"
-  let token = ref(localStorage.getItem("token"))
+  // import {ref} from "vue"
+  // let token = ref(localStorage.getItem("token"))
 
-  window.addEventListener("setItemEvent", () => {
-    setTimeout(() => {
-      let localToken = localStorage.getItem("token")
-      if (localToken !== null) {
-        token.value = localToken
-      }
-    })
-  })
+  // window.addEventListener("setItemEvent", () => {
+  //   setTimeout(() => {
+  //     let localToken = localStorage.getItem("token")
+  //     if (localToken !== null) {
+  //       token.value = localToken
+  //     }
+  //   })
+  // })
 
-  window.addEventListener("clearItemEvent", () => {
-    setTimeout(() => {
-      token.value = ""
-    })
-  })
+  // window.addEventListener("clearItemEvent", () => {
+  //   setTimeout(() => {
+  //     token.value = ""
+  //   })
+  // })
 </script>
 
 <style scoped lang="scss">

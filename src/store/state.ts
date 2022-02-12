@@ -1,5 +1,4 @@
 const state = {
-  token: null,
-  sessionid: 123131231
+  collapse: false,
 }
-export {state}
+export { state }

@@ -21,10 +21,7 @@
   const getUserInfo = (val: Object): void => {
     localStorage.setItem("token", "token")
     router.push({
-      path: "/default",
-      query: {
-        name: "张三"
-      }
+      path: "/default"
     })
   }
 </script>

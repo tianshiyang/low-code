@@ -1,6 +1,6 @@
 const mutations = {
-  updateToken(state: any, payload: String) {
-    state["token"] = payload
+  changeCollapse(state: any, payload: boolean) {
+    state["collapse"] = !state["collapse"]
   }
 }
 export {mutations}
