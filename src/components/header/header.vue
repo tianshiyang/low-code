@@ -14,10 +14,10 @@
 
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
-        <div>{{ user }}</div>
-        <el-icon class="el-icon--right">
+        <div class="user-info">{{ user }}</div>
+        <!-- <el-icon class="el-icon--right">
           <arrow-down />
-        </el-icon>
+        </el-icon>-->
       </span>
       <template #dropdown>
         <el-dropdown-menu>
@@ -76,6 +76,16 @@ const signOut: () => void = () => {
   .el-dropdown-link {
     color: #ffffff;
     display: flex;
+
+    .user-info {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      background: yellowgreen;
+      text-align: center;
+      border-radius: 50px;
+      font-weight: 600;
+    }
   }
 }
 </style>
