@@ -80,6 +80,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { ElForm, ElNotification } from 'element-plus'
+import { test } from "../../api";
 
 const form = reactive({
   goods_id: "",
@@ -235,8 +236,10 @@ const confirmUpdateCurrent: (updateCurrent: updateCurrent | undefined) => void =
   }
 }
 
+
 // 增加商品
 const addGoods: () => void = (): void => {
+  test({ data: 111 })
   ElNotification({
     title: "添加成功",
     message: "添加商品成功",
