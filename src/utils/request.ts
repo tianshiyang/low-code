@@ -43,7 +43,7 @@ server.interceptors.request.use(
   )
 
 // 响应拦截器
-server.interceptors.response.use(response => {
+server.interceptors.response.use(res => {
   Loading.close()
 }, err => {
   Loading.close()

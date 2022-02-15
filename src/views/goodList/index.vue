@@ -1,19 +1,22 @@
 <template>
-  <el-form ref="ruleFormRef" :model="form" inline>
-    <el-form-item label="商品id">
-      <el-input :model="form.goods_id" placeholder="请输入商品id"></el-input>
-    </el-form-item>
-    <el-form-item label="商品分类">
-      <el-select v-model="form.goods_classification" placeholder="请选择商品分类" size="large">
-        <el-option
-          v-for="item in option.goods_classification_options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
-      </el-select>
-    </el-form-item>
-  </el-form>
+  <page-title title="商品列表" />
+  <div class="form-style">
+    <el-form ref="ruleFormRef" :model="form" inline>
+      <el-form-item label="商品id">
+        <el-input :model="form.goods_id" placeholder="请输入商品id"></el-input>
+      </el-form-item>
+      <el-form-item label="商品分类">
+        <el-select v-model="form.goods_classification" placeholder="请选择商品分类" size="large">
+          <el-option
+            v-for="item in option.goods_classification_options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
+  </div>
 
   <div class="edit-button">
     <el-button type="primary" size="small" @click="addGoods">增加商品</el-button>
@@ -75,12 +78,20 @@
       <el-button>取消</el-button>
     </template>
   </el-dialog>
+
+  <EditGoods
+    v-model="dialog.open_add_com.dialog_visible"
+    title="添加商品"
+    @handleCloseDialog="handleClose"
+    @handleAddGoods="handleAddGoods"
+  />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { ElForm, ElNotification } from 'element-plus'
-import { test } from "../../api";
+import PageTitle from "../../components/pubComponents/pageTitle.vue";
+import EditGoods from "../../components/busComponents/editGoods.vue";
 
 const form = reactive({
   goods_id: "",
@@ -138,6 +149,9 @@ const dialog = reactive({
       specifications: "",
       attribute: ""
     }
+  },
+  open_add_com: {
+    dialog_visible: false
   }
 })
 
@@ -159,8 +173,8 @@ let table_data = reactive([
   }
 ])
 
-interface Row {
-  id: string,
+interface GoodsInfo {
+  id?: number,
   goods_name: string,
   goods_classification: number,
   count: number,
@@ -168,7 +182,7 @@ interface Row {
   attribute: string
 }
 
-const goodsClassification: (row: Row) => string = (row: Row): string => {
+const goodsClassification: (row: GoodsInfo) => string = (row: GoodsInfo): string => {
   let str = "", { goods_classification } = row
   switch (goods_classification) {
     case 0:
@@ -182,21 +196,21 @@ const goodsClassification: (row: Row) => string = (row: Row): string => {
 }
 
 // 删除当前行
-const delCurrentRow: (row: Row) => void = (row: Row): void => {
+const delCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo): void => {
   const { id } = row
   table_data.forEach((res, index) => {
-    if (Number(id) === res.id) {
+    if (id === res.id) {
       table_data.splice(index, 1)
     }
   })
 }
 
 // 更改当前行数据，按钮开关
-const updateCurrentRow: (row: Row) => void = (row: Row) => {
+const updateCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo) => {
   dialog.update_current.dialog_visible = true
   const { id, goods_classification, goods_name, count, specifications, attribute } = row
   dialog.update_current.form = {
-    id: Number(id),
+    id: <number>id,
     goods_classification,
     goods_name,
     count,
@@ -239,15 +253,29 @@ const confirmUpdateCurrent: (updateCurrent: updateCurrent | undefined) => void =
 
 // 增加商品
 const addGoods: () => void = (): void => {
-  test({ data: 111 })
-  ElNotification({
-    title: "添加成功",
-    message: "添加商品成功",
-    type: "success"
-  })
-  console.log("添加成功")
+  dialog.open_add_com.dialog_visible = true
 }
 
+// 关闭对话框回掉
+const handleClose = (): void => {
+  dialog.open_add_com.dialog_visible = false
+}
+
+// 提交数据回掉
+const handleAddGoods: (callback_goods: GoodsInfo) => void = (callback_goods: GoodsInfo) => {
+  handleClose()
+  // id： 表格数据最后一项id + 1
+  let id: number = table_data[table_data.length - 1].id + 1
+  const { goods_classification, goods_name, count, specifications, attribute } = callback_goods
+  table_data.push({
+    id,
+    goods_classification,
+    goods_name,
+    count,
+    specifications,
+    attribute
+  })
+}
 </script>
 
 <style lang="scss" scoped>

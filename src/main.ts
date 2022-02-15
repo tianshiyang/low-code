@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
+import "./assets/css/index.scss"
 
 const app = createApp(App)
 router.beforeEach((to, from, next) => {

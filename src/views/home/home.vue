@@ -25,5 +25,9 @@ const collapse = computed((): boolean => {
 <style lang="scss">
 .app-box {
   height: 100%;
+
+  .el-main {
+    padding: 0;
+  }
 }
 </style>

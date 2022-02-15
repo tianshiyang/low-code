@@ -5,15 +5,18 @@
     class="el-menu-demo"
     :collapse="collapse"
     router
-    text-color="#fff">
+    text-color="#fff"
+  >
     <el-submenu index="/default">
       <template #title>
-          <el-icon><shop /></el-icon>
-          <span>列表页</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="/good-list">商品列表</el-menu-item>
-        </el-menu-item-group>
+        <el-icon>
+          <shop />
+        </el-icon>
+        <span>列表页</span>
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="/good-list">商品列表</el-menu-item>
+      </el-menu-item-group>
     </el-submenu>
   </el-menu>
 </template>
