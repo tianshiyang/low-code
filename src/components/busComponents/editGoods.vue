@@ -38,23 +38,37 @@
   </el-dialog>
 </template>
 <script setup lang="ts">
-import { defineProps, reactive, ref, watch } from 'vue';
+import { defineProps, reactive, ref, watch, PropType, Prop } from 'vue';
 import type { ElForm } from "element-plus"
+
 type FormInstance = InstanceType<typeof ElForm>
 const addGoods = ref<FormInstance>()
 
-defineProps({
+// 父组件传参类型约束
+interface PropDefaultData {
+  id?: number,
+  goods_name: string,
+  goods_classification: number,
+  count: number,
+  specifications: string,
+  attribute: string
+}
+const props = defineProps({
   modelValue: Boolean,
-  title: String
+  title: String,
+  propDefaultData: Object as PropType<PropDefaultData>
 })
+
+const { id, goods_name, goods_classification, count, specifications, attribute } = <PropDefaultData>props.propDefaultData
 
 // form表单model数据
 const add_form = reactive({
-  goods_name: "",
-  goods_classification: 1,
-  count: 1,
-  specifications: "",
-  attribute: ""
+  id,
+  goods_name,
+  goods_classification,
+  count,
+  specifications,
+  attribute
 })
 
 // 下拉框选项
