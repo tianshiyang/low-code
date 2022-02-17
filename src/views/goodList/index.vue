@@ -3,7 +3,7 @@
   <div class="form-style">
     <el-form ref="ruleFormRef" :model="form" inline>
       <el-form-item label="商品id">
-        <el-input :model="form.goods_id" placeholder="请输入商品id"></el-input>
+        <el-input v-model="form.goods_id" placeholder="请输入商品id"></el-input>
       </el-form-item>
       <el-form-item label="商品分类">
         <el-select v-model="form.goods_classification" placeholder="请选择商品分类" size="large">
@@ -35,6 +35,7 @@
       <template #default="scope">
         <el-button type="danger" size="small" @click="delCurrentRow(scope.row)">删除</el-button>
         <el-button type="warning" size="small" @click="updateCurrentRow(scope.row)">更改</el-button>
+        <el-button type="info" size="small" @click="router.push('/add-goods')">详情</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -50,11 +51,21 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import { ElForm, ElNotification } from 'element-plus'
+import { onActivated, reactive } from "vue";
+import { ElForm } from 'element-plus'
 import PageTitle from "../../components/pubComponents/pageTitle.vue";
 import EditGoods from "../../components/busComponents/editGoods.vue";
 import { test } from "../../api";
+import { useRouter } from "vue-router";
+const router = useRouter()
+onActivated(() => {
+  getMockData()
+})
+
+// 模拟数据接口
+const getMockData: () => void = (): void => {
+  test({})
+}
 
 const form = reactive({
   goods_id: "",
@@ -151,7 +162,7 @@ const updateCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo) => {
 
 // 增加商品
 const addGoods: () => void = (): void => {
-  test({})
+  getMockData()
   dialog.update_current.dialog_visible = true
 }
 

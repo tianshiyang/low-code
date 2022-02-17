@@ -6,7 +6,12 @@
         <v-menu></v-menu>
       </el-aside>
       <el-main>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" v-if="keep_alive_route.includes(route_path)" />
+          </keep-alive>
+          <component :is="Component" v-if="!keep_alive_route.includes(route_path)" />
+        </router-view>
       </el-main>
     </el-container>
   </div>
@@ -16,6 +21,11 @@ import vMenu from "@/components/menu/index.vue"
 import vHeader from "@/components/header/header.vue"
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute()
+const route_path = computed((): string => route.path)
+// 保持当前路由状态的列表
+const keep_alive_route = ["/good-list"]
 
 const store = useStore()
 const collapse = computed((): boolean => {
