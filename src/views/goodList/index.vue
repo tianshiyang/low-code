@@ -62,6 +62,15 @@ onActivated(() => {
   getMockData()
 })
 
+interface IdGoodsInfo {
+  id: number,
+  goods_name: string,
+  goods_classification: number,
+  count: number,
+  specifications: string,
+  attribute: string
+}
+
 // 模拟数据接口
 const getMockData: () => void = (): void => {
   test({})
@@ -114,16 +123,9 @@ let table_data = reactive([
   }
 ])
 
-interface GoodsInfo {
-  id?: number,
-  goods_name: string,
-  goods_classification: number,
-  count: number,
-  specifications: string,
-  attribute: string
-}
 
-const goodsClassification: (row: GoodsInfo) => string = (row: GoodsInfo): string => {
+// 更换商品类别
+const goodsClassification: (row: IdGoodsInfo) => string = (row: IdGoodsInfo): string => {
   let str = "", { goods_classification } = row
   switch (goods_classification) {
     case 0:
@@ -137,7 +139,7 @@ const goodsClassification: (row: GoodsInfo) => string = (row: GoodsInfo): string
 }
 
 // 删除当前行
-const delCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo): void => {
+const delCurrentRow: (row: IdGoodsInfo) => void = (row: IdGoodsInfo): void => {
   const { id } = row
   table_data.forEach((res, index) => {
     if (id === res.id) {
@@ -147,10 +149,10 @@ const delCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo): void => {
 }
 
 // 更改当前行数据，按钮开关
-const updateCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo) => {
+const updateCurrentRow: (row: IdGoodsInfo) => void = (row: IdGoodsInfo) => {
   const { id, goods_classification, goods_name, count, specifications, attribute } = row
   dialog.update_current.form = {
-    id: Number(id),
+    id,
     goods_classification,
     goods_name,
     count,
@@ -178,12 +180,12 @@ const handleClose = (): void => {
 }
 
 // 提交数据回掉
-const handleAddGoods: (callback_goods: GoodsInfo) => void = (callback_goods: GoodsInfo) => {
+const handleAddGoods: (callback_goods: IdGoodsInfo) => void = (callback_goods: IdGoodsInfo) => {
   const { goods_classification, goods_name, count, specifications, attribute } = callback_goods
   // 存在id证明是更改
   if (callback_goods.id !== -1) {
-    table_data.forEach((res: GoodsInfo, index: number) => {
-      if (<number>res.id === <number>callback_goods.id) {
+    table_data.forEach((res: IdGoodsInfo, index: number) => {
+      if (res.id === callback_goods.id) {
         table_data[index].attribute = callback_goods.attribute
         table_data[index].count = callback_goods.count
         table_data[index].specifications = callback_goods.specifications

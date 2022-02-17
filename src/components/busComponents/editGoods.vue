@@ -46,7 +46,7 @@ const addGoods = ref<FormInstance>()
 
 // 父组件传参类型约束
 interface PropDefaultData {
-  id?: number,
+  id: number,
   goods_name: string,
   goods_classification: number,
   count: number,
@@ -118,7 +118,7 @@ const rules = reactive({
 
 // 接口表单提交项
 interface EditGoodsForm {
-  id?: number,
+  id: number,
   goods_name: string,
   goods_classification: number,
   count: number,
@@ -126,7 +126,7 @@ interface EditGoodsForm {
   attribute: string
 }
 
-// 接口时间回掉
+// 接口 事件回掉
 interface EmitType {
   (event: 'handleCloseDialog'): void
   (event: "handleAddGoods", addform: EditGoodsForm): void
