@@ -11,7 +11,6 @@ function mockRequest(params: MockRequest) {
     params.url = params.mock
   }
   const {isMock, mock, ...data} = params
-  console.log(data)
   return request(data)
 }
 export default mockRequest

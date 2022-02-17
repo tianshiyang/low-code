@@ -181,7 +181,6 @@ const handleClose = (): void => {
 const handleAddGoods: (callback_goods: GoodsInfo) => void = (callback_goods: GoodsInfo) => {
   const { goods_classification, goods_name, count, specifications, attribute } = callback_goods
   // 存在id证明是更改
-  console.log(callback_goods.id)
   if (callback_goods.id !== -1) {
     table_data.forEach((res: GoodsInfo, index: number) => {
       if (<number>res.id === <number>callback_goods.id) {
