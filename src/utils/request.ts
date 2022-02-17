@@ -16,7 +16,6 @@ server.interceptors.request.use(
   (config: AxiosRequestConfig<any>) => {
     // get请求加token
     if (["get", "GET"].includes(<string>config.method)) {
-      console.log(config.data)
       config.data.token = localStorage.getItem("token")
     }
     // post请求加token

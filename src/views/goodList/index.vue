@@ -54,6 +54,7 @@ import { reactive, ref } from "vue";
 import { ElForm, ElNotification } from 'element-plus'
 import PageTitle from "../../components/pubComponents/pageTitle.vue";
 import EditGoods from "../../components/busComponents/editGoods.vue";
+import { test } from "../../api";
 
 const form = reactive({
   goods_id: "",
@@ -150,6 +151,7 @@ const updateCurrentRow: (row: GoodsInfo) => void = (row: GoodsInfo) => {
 
 // 增加商品
 const addGoods: () => void = (): void => {
+  test({})
   dialog.update_current.dialog_visible = true
 }
 
