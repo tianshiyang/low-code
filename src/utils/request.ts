@@ -1,14 +1,16 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElLoading, ElNotification } from 'element-plus'
 import { INotificationHandle } from 'element-plus/lib/el-notification/src/notification.type'
 
 let Loading: INotificationHandle
 
+axios.defaults.baseURL = "http://localhost:4000/api"
+
 // 配置post请求默认请求头
 axios.defaults.headers.post['Content-Type'] = "application/json"
 // 创建axios实例
 const server = axios.create({
-  timeout: 1000 // 默认请求超时时间
+  timeout: 1000, // 默认请求超时时间
 })
 
 // 添加请求拦截器
@@ -38,13 +40,16 @@ server.interceptors.request.use(
       message: str,
       type: 'error',
     })
+    return Promise.reject(err)
   }
   )
 
 // 响应拦截器
-server.interceptors.response.use(res => {
+server.interceptors.response.use((res) => {
   Loading.close()
+  return Promise.resolve(res.data.content)
 }, err => {
   Loading.close()
+  return Promise.reject(err)
 })
 export default server

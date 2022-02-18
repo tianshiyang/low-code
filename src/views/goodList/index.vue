@@ -35,7 +35,7 @@
       <template #default="scope">
         <el-button type="danger" size="small" @click="delCurrentRow(scope.row)">删除</el-button>
         <el-button type="warning" size="small" @click="updateCurrentRow(scope.row)">更改</el-button>
-        <el-button type="info" size="small" @click="router.push('/add-goods')">详情</el-button>
+        <el-button type="info" size="small" @click="goGoodsInfo(scope.row)">详情</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -55,11 +55,10 @@ import { onActivated, reactive } from "vue";
 import { ElForm } from 'element-plus'
 import PageTitle from "../../components/pubComponents/pageTitle.vue";
 import EditGoods from "../../components/busComponents/editGoods.vue";
-import { test } from "../../api";
 import { useRouter } from "vue-router";
 const router = useRouter()
 onActivated(() => {
-  getMockData()
+  // getMockData()
 })
 
 interface IdGoodsInfo {
@@ -73,7 +72,7 @@ interface IdGoodsInfo {
 
 // 模拟数据接口
 const getMockData: () => void = (): void => {
-  test({})
+  // test({})
 }
 
 const form = reactive({
@@ -164,7 +163,6 @@ const updateCurrentRow: (row: IdGoodsInfo) => void = (row: IdGoodsInfo) => {
 
 // 增加商品
 const addGoods: () => void = (): void => {
-  getMockData()
   dialog.update_current.dialog_visible = true
 }
 
@@ -207,6 +205,14 @@ const handleAddGoods: (callback_goods: IdGoodsInfo) => void = (callback_goods: I
     attribute
   })
   handleClose()
+}
+
+// 跳转到商品详情页
+const goGoodsInfo: (row: IdGoodsInfo) => void = (row: IdGoodsInfo): void => {
+  const { id } = row
+  router.push({
+    path: `/goods-info/${id}`
+  })
 }
 </script>
 

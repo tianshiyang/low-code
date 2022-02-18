@@ -11,19 +11,29 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { reactive, defineEmits } from 'vue';
-  import { useRouter } from "vue-router"
-  import LoginCom from './loginCom.vue';
-  let active_name_form = reactive({
-    active_name: "login",
-  })
-  const router = useRouter()
-  const getUserInfo = (val: Object): void => {
+import { reactive, ref } from 'vue';
+import { useRouter } from "vue-router"
+import LoginCom from './loginCom.vue';
+import { login } from "../../api/index"
+let active_name_form = reactive({
+  active_name: "login",
+})
+const router = useRouter()
+
+interface UserLogin {
+  user_name: String,
+  password: String
+}
+
+
+const getUserInfo: (user_info: UserLogin) => void = (user_info: UserLogin): void => {
+  login(user_info).then(res => {
     localStorage.setItem("token", "token")
     router.push({
       path: "/default"
     })
-  }
+  })
+}
 </script>
 <style scoped lang="scss">
 .box {
@@ -45,7 +55,7 @@
     left: 40%;
     font-size: 20px;
   }
-  .el-tabs__item  {
+  .el-tabs__item {
     font-size: 20px;
   }
 }
