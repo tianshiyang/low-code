@@ -1,10 +1,10 @@
-import mockRequest from "../utils/mockRequest"
 import qs from "qs"
 import { ReqRes } from "../req-res"
+import request from "../utils/request"
 
 // 登陆功能
 export function login(data: any) {
-  return mockRequest({
+  return request({
     url: "login",
     method: "get",
     data: data,
@@ -15,7 +15,7 @@ export function login(data: any) {
 
 // 获取商品详情
 export function getGoodsInfo(data: any) {
-  return <Promise<ReqRes.ResListData>>mockRequest({
+  return <Promise<ReqRes.ResListData>>request({
     url: "get/goods-info" + qs.stringify(data),
     method: "get",
     data: data,

@@ -16,6 +16,9 @@ const server = axios.create({
 // 添加请求拦截器
 server.interceptors.request.use(
   (config: AxiosRequestConfig<any>) => {
+    if (config.isMock && config.mock) {
+      config.url = config.mock
+    }
     // get请求加token
     if (["get", "GET"].includes(<string>config.method)) {
       config.data.token = localStorage.getItem("token")
