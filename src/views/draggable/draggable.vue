@@ -47,7 +47,6 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
 import PageTitle from '../../components/pubComponents/pageTitle.vue';
-import draggable from 'vuedraggable'
 let data = reactive({
   single_array: [
     { id: 10, name: 'www.itxst.com' },

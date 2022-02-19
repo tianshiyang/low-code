@@ -5,10 +5,10 @@ import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import "./assets/css/index.scss"
-// import draggableComponent from 'vuedraggable'
+import draggable from 'vuedraggable'
 
 const app = createApp(App)
-// app.component('draggable', draggableComponent)
+app.component('draggable', draggable)
 router.beforeEach((to, from, next) => {
   if (localStorage.getItem("token") === null) {
      if (to.path !== "/login") {
