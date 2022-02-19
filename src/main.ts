@@ -7,8 +7,12 @@ import 'element-plus/lib/theme-chalk/index.css'
 import "./assets/css/index.scss"
 import draggable from 'vuedraggable'
 
+
 const app = createApp(App)
+// vue全局挂载第三方组件库
 app.component('draggable', draggable)
+
+
 router.beforeEach((to, from, next) => {
   if (localStorage.getItem("token") === null) {
      if (to.path !== "/login") {

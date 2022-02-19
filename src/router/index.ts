@@ -31,6 +31,10 @@ const routes: Array<RouteRecordRaw> = [
       path: "/draggable",
       name: "draggable",
       component: () => import("@/views/draggable/draggable.vue")
+    }, {
+      path: "/echarts",
+      name: "echarts",
+      component: () => import("@/views/echarts/echarts.vue")
     }]
   },
 ]
