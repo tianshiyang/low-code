@@ -7,7 +7,7 @@
     router
     text-color="#fff"
   >
-    <el-submenu index="/default">
+    <el-submenu index="list">
       <template #title>
         <el-icon>
           <shop />
@@ -16,6 +16,17 @@
       </template>
       <el-menu-item-group>
         <el-menu-item index="/good-list">商品列表</el-menu-item>
+      </el-menu-item-group>
+    </el-submenu>
+    <el-submenu index="draggable">
+      <template #title>
+        <el-icon>
+          <shop />
+        </el-icon>
+        <span>第三方组件库</span>
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="/draggable">拖拽列表</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
