@@ -7,6 +7,9 @@
     <el-tab-pane label="折线图" name="LineChart">
       <line-chart></line-chart>
     </el-tab-pane>
+    <el-tab-pane label="饼图" name="PieChart">
+      <pie-chart></pie-chart>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -15,6 +18,7 @@ import histogram from "./components/histogram.vue"
 import PageTitle from '../../components/pubComponents/pageTitle.vue';
 import { computed, ref } from "vue";
 import LineChart from "./components/lineChart.vue";
+import PieChart from "./components/pieChart.vue";
 
 const getEchartsType = computed(() => {
   switch (echarts_type.value) {
@@ -22,6 +26,8 @@ const getEchartsType = computed(() => {
       return "柱状图"
     case "LineChart":
       return "折线图"
+    case "PieChart":
+      return "饼图"
   }
 })
 
