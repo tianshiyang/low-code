@@ -4,7 +4,9 @@
     <el-tab-pane label="柱状图" name="Histogram">
       <histogram></histogram>
     </el-tab-pane>
-    <el-tab-pane label="折线图" name="LineChart">LineChart</el-tab-pane>
+    <el-tab-pane label="折线图" name="LineChart">
+      <line-chart></line-chart>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -12,6 +14,7 @@
 import histogram from "./components/histogram.vue"
 import PageTitle from '../../components/pubComponents/pageTitle.vue';
 import { computed, ref } from "vue";
+import LineChart from "./components/lineChart.vue";
 
 const getEchartsType = computed(() => {
   switch (echarts_type.value) {
