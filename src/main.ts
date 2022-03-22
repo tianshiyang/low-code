@@ -6,9 +6,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 import "./assets/css/index.scss"
 import draggable from 'vuedraggable'
+import MyButton from './plugins/myButton/index'
 
 
 const app = createApp(App)
+app.component("myButton", MyButton)
 // vue全局挂载第三方组件库
 app.component('draggable', draggable)
 

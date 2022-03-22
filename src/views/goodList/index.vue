@@ -48,10 +48,13 @@
     @handleCloseDialog="handleClose"
     @handleAddGoods="handleAddGoods"
   />
+  <my-button v-model="testSelfPlugins" @click="clickSelfPlugins">
+    <div>button</div>
+  </my-button>
 </template>
 
 <script lang="ts" setup>
-import { onActivated, reactive } from "vue";
+import { onActivated, reactive, ref } from "vue";
 import { ElForm } from 'element-plus'
 import PageTitle from "../../components/pubComponents/pageTitle.vue";
 import EditGoods from "../../components/busComponents/editGoods.vue";
@@ -60,6 +63,12 @@ const router = useRouter()
 onActivated(() => {
   // getMockData()
 })
+
+const testSelfPlugins = ref('zhangsan')
+const clickSelfPlugins = () => {
+  testSelfPlugins.value = "李四"
+  console.log(1232131)
+}
 
 interface IdGoodsInfo {
   id: number,
