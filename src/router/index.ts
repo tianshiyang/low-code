@@ -39,6 +39,10 @@ const routes: Array<RouteRecordRaw> = [
       path: "/gaode-map",
       name: "gaodeMap",
       component: () => import("@/views/GaodeMap/gaodeMap.vue")
+    }, {
+      path: "/sql",
+      name: "sql",
+      component: () => import("@/views/codeSql/codeSql.vue")
     }]
   },
 ]
